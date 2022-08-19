@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import BoardService from '../service/BoardService'
+import React, { Component } from 'react';
+import BoardService from '../service/BoardService';
 
 class ListBoardComponent extends Component {
     constructor(props){
@@ -17,14 +17,18 @@ class ListBoardComponent extends Component {
     //리액트의 생명주기 메소드인 'componentDidMount'에서 'BoardService'의 메소드를 호출해서 데이터를 가져온다.
     // -> this.state에 선언한 변수의 값을 변경하기 위해선 setState를 사용해야함.
     componentDidMount(){
-        BoardService.getBoards().then((res =>{
+        BoardService.getBoards().then((res) =>{
             this.setState({boards : res.data});
-        }))
+        });
     }
 
     //글작성 버튼 클릭시, 글 작성 페이지로 이동하게 해주는 함수를 정의
     createBoard(){
-        this.props.history.push('/create-board/');
+        this.props.history.push('/create-board/_create');
+    }
+
+    readBoard(no){
+        this.props.history.push('/read-board/${no}');
     }
     
     //render()함수의 내용이 실제 웹페이지에 표시된다.
@@ -60,6 +64,7 @@ class ListBoardComponent extends Component {
                                 board=>
                                 <tr key={board.no}>
                                     <td>{board.no}</td>
+                                    <td> <a onClick = { () => this.readBoard(board.no)}>{board.title}</a></td>
                                     <td>{board.title}</td>
                                     <td>{board.memberNo}</td>
                                     <td>{board.createdTime}</td>

@@ -1,23 +1,25 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; 
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import ListBoardComponent from './components/ListBoardComponent';
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
+import ReadBoardComponent from './components/ReadBoardComponent';
 
 
 //App()함수에 최상위 컴포넌트들을 정의함
 function App() {
   return (
     <div> 
-      <Router>  
+      <Router>
         <HeaderComponent/> 
           <div className="container">
-            <Routes>     
+            <Switch>     
               <Route path = "/" exact element = {<ListBoardComponent />}></Route>
               <Route path = "/board" element = {<ListBoardComponent />}></Route>
-              <Route path = "/create-board" element = {<CreateBoardComponent />}></Route>
-            </Routes>
+              <Route path = "/create-board/:no" element = {<CreateBoardComponent />}></Route>
+              <Route path = "/read-board/:no" element = {<ReadBoardComponent />}></Route>
+            </Switch>
           </div>
         <FooterComponent/>  
       </Router>
@@ -31,7 +33,8 @@ function App() {
 // -> withRouter(App)으로 전달하여 해결 -> 라우트 컴포넌트가 아닌곳(일반 컴포넌트)에서 match, location, history를 사용해야할 때 쓰였다
 // 버전 업데이트 이후 withRouter 사라짐
 //  ->
-export default withRouter(App);
+// export default withRouter(App);
+export default App;
 
 /* 1. <Router> ==>  react-router의 적용대상의 컴포넌트를 <Router>로 감싼다. 
     2. <HeaderComponent/> ==> 웹페이지의 헤더부분을 표시하는 컴포넌트들을 정의
